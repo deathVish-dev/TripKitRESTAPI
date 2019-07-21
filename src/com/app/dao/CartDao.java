@@ -23,7 +23,7 @@ public class CartDao implements ICartDao {
 	@Override
 	public Cart saveInCart(Cart c) {
 		Cart cart=null;
-		String jpql="select i from Cart i where product_id:=pid";
+		String jpql="select i from Cart i where product_id:=pid and customer_id=:uid";
 		System.out.println("in get cart items");
 		try{
 			cart=sf.getCurrentSession().createQuery(jpql,Cart.class)
@@ -61,6 +61,23 @@ public class CartDao implements ICartDao {
 			// TODO: handle exception
 		}
 		return cartitems;
+	}
+
+
+
+	@Override
+	public Cart prodCart(long uid, long pid) {
+		Cart cart=null;
+		String jpql="select i from Cart i where product_id=:pid and customer_id=:uid";
+		System.out.println("in get cart items");
+		try{
+			cart=sf.getCurrentSession().createQuery(jpql,Cart.class)
+			.setParameter("pid", pid).setParameter("uid",uid).getSingleResult();
+		}catch (Exception e) {
+			// TODO: handle exception
+			cart=null;
+		}
+		return cart;
 	}
 
 }

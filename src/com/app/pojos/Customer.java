@@ -1,22 +1,26 @@
 package com.app.pojos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Length;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name = "UserTable")
-public class Customer {
+public class Customer implements Serializable{
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,11 +47,15 @@ public class Customer {
     private String pass;
     
     
-    @OneToMany(mappedBy = "cust",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cust",cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonBackReference
     private List<Order> orders=new ArrayList<Order>();
     
     
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+    @JsonBackReference
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Cart> carts=new ArrayList<Cart>();
 
 	public Long getId() {

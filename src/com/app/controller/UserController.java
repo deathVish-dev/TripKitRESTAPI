@@ -7,9 +7,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dao.ICartDao;
 import com.app.dao.IProductDao;
@@ -19,7 +24,7 @@ import com.app.pojos.Product;
 
 @CrossOrigin/*(origins = "http://localhost:4200")*/
 @RestController
-@RequestMapping("/products") //optional BUT reco
+@RequestMapping("/user") //optional BUT reco
 public class UserController {
 
 	@Autowired
@@ -34,49 +39,29 @@ public class UserController {
 		System.out.println("In User Controller");
 	}
 	
-	@GetMapping
-	public ResponseEntity<List<Product>> getAllStudents() {
+	@GetMapping("/products")
+	public ResponseEntity<List<Product>> getAllProducts() {
 
 		return new ResponseEntity<List<Product>>(productdao.getAllProduct(),HttpStatus.OK);
 	}
 	
-	@GetMapping("/userpage")
-	public String loadHomePage(Model map)
-	{
+	@GetMapping("/products/{pid}")
+	public Product getProduct(@PathVariable long pid) {
+
+		return productdao.getProduct(pid);
+	}
+	
+	@GetMapping("/prodcart/{uid}/{pid}")
+	public Cart getCart(@PathVariable long uid,@PathVariable long pid) {
+
+		return cartdao.prodCart(uid, pid);
+	}
+	
+	@PostMapping("/storecart/{uid}/{pid}")
+	public String storeInCart(@PathVariable long uid,@PathVariable long pid) {
 		
-		List<Product> ls=productdao.getAllProduct();
-		map.addAttribute("productlist",ls);
-		return "user/userpage";
+		return null;
 	}
-	
-	@GetMapping("/product")
-	public String loadProductPage(@RequestParam long id,Model map)
-	{
-		System.out.println(id);
-		map.addAttribute("product",productdao.getProduct(id));
-		return "user/product";
-	}
-	
-	@PostMapping("/product")
-	public String storeInCart(@RequestParam int count,@RequestParam long pid,HttpSession hs)
-	{
-		System.out.println("*************************");
-		System.out.println(pid+" "+count);
-		Customer c=(Customer)hs.getAttribute("useracc");
-		Cart cart=new Cart(productdao.getProduct(pid), count, c);
-		cartdao.saveInCart(cart);
-		//map.addAttribute("product",productdao.getProduct(id));
-		return "user/usercart";
-	}
-	
-	/*@GetMapping("/cart")
-	public String loadCartPage(HttpSession hs,Model map)
-	{
-		System.out.println("In Cart Load");
-		Customer c=(Customer)hs.getAttribute("useracc");
-		List<Cart> cartitems=cartdao.getUserCart(c.getId());
-		map.addAttribute("cartitems", cartitems);	
-		return "user/usercart";
-	}*/
+
 
 }

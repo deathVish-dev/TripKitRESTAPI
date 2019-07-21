@@ -1,11 +1,22 @@
 package com.app.pojos;
 
-import javax.persistence.*;
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
 @Table(name = "CartTable")
-public class Cart {
+public class Cart implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,6 +24,7 @@ public class Cart {
 	private long id;
 	
 	@ManyToOne
+	@JsonManagedReference
 	@JoinColumn(name="product_id")
 	private Product product;
 	
@@ -22,6 +34,7 @@ public class Cart {
 	
 	
 	@ManyToOne
+	@JsonManagedReference
 	@JoinColumn(name="customer_id")
 	private Customer customer;
 

@@ -1,15 +1,18 @@
 package com.app.pojos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "VendorTable")
-public class Vendor {
+public class Vendor implements Serializable {
 	
 	 	@Id
 	    @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,7 +52,8 @@ public class Vendor {
 	    private String pass;
 
 
-	    @OneToMany(mappedBy = "ven",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	    @OneToMany(mappedBy = "ven",cascade = CascadeType.ALL)
+	    @LazyCollection(LazyCollectionOption.FALSE)
 	    List<Inventory> products=new ArrayList<Inventory>();
 	    
 	    

@@ -1,19 +1,21 @@
 package com.app.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dao.ICustomerDao;
 import com.app.dao.ILoginDao;
+import com.app.dao.IVendorDao;
+import com.app.pojos.Customer;
 import com.app.pojos.Login;
+import com.app.pojos.Vendor;
 
-@Controller 
+@CrossOrigin/*(origins = "http://localhost:4200")*/
+@RestController 
 @RequestMapping("/login")
 public class LoginController {
 	
@@ -21,6 +23,8 @@ public class LoginController {
 	ILoginDao dao;
 	@Autowired
 	ICustomerDao custdao;
+	@Autowired
+	IVendorDao vendao;
 	
 	String msg="Enter Email and password";
 	
@@ -29,42 +33,43 @@ public class LoginController {
 	}
 
 	
-	@GetMapping("/loginpage")
-	public String loadLogin(Login l,Model map) {
-		System.out.println("in say hello");
-		map.addAttribute("msg", msg);
-		return "login/logs";
-	}
-	
-	@PostMapping("/loginpage")
-	public String processLogin(String mail,String password,HttpSession session) {
-		System.out.println("in say process login\n"+mail+" "+password);
+	@GetMapping("/logindtls/{uname}/{pass}")
+	public Login loadLogin(@PathVariable String uname,@PathVariable String pass) {
 		Login login=null;
-		login=dao.validate(mail,password);
+		login=dao.validate(uname,pass);
 		System.out.println(login);
-		if(login!=null) 
-		{
+		return login;
+		}
+	@GetMapping("/custdtls/{uname}/{pass}")
+	public Customer custDetails(@PathVariable String uname,@PathVariable String pass) {
+		Customer c=custdao.getCustomerAcc(uname, pass);
+		return c;
+		}
+	
+	@GetMapping("/vendtls/{uname}/{pass}")
+	public Vendor venDetails(@PathVariable String uname,@PathVariable String pass) {
+		Vendor v=vendao.valVendor(uname, pass);
+		return v;
+		}
+	
+	
+	@GetMapping("/logindtlsforsession/{login}")
+	public String processLogin(@PathVariable Login l) {
+		System.out.println("in say process login\n");
 			//session.setAttribute("loginuser", login);
 			msg="Enter Email and password";
-			String role=login.getRole();
+			String role=l.getRole();
 			if(role.equals("Admin"))
 			{
 				return "redirect:/admin/adminpage";
 			}
 			else if(role.equals("Customer"))
 			{
-				session.setAttribute("useracc",custdao.getCustomerAcc(mail, password) );
+				//session.setAttribute("useracc",custdao.getCustomerAcc(mail, password) );
 			return "redirect:/user/userpage";
 			}
 			else
 			return "redirect:/vendor/vendorpage";
-		}
-		else
-		{
-			msg="Wrong credentials";
-			System.out.println(msg);
-			return "redirect:/login/loginpage";
-		}
 	}
 	
 	@GetMapping("/regchoice")

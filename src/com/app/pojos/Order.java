@@ -1,6 +1,7 @@
 package com.app.pojos;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "OrderTable")
-public class Order {
+public class Order implements Serializable{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
