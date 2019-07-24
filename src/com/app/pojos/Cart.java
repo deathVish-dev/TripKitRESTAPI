@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "CartTable")
-public class Cart implements Serializable{
+public class Cart{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

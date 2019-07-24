@@ -1,8 +1,8 @@
 package com.app.pojos;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name = "UserTable")
-public class Customer implements Serializable{
+public class Customer{
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,20 +43,26 @@ public class Customer implements Serializable{
     private Long phone;
     
     @Column(name = "password", nullable = false)
-    @Length(min = 8)
+    @Length(min = 3)
     private String pass;
     
     
     @OneToMany(mappedBy = "cust",cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonBackReference
-    private List<Order> orders=new ArrayList<Order>();
+    private Set<Order> orders;
     
     
     @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
     @JsonBackReference
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Cart> carts=new ArrayList<Cart>();
+    private Set<Cart> carts;
+    
+    
+    @OneToMany(mappedBy = "cust",cascade = CascadeType.ALL)
+    @JsonBackReference
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<Address> addrs;
 
 	public Long getId() {
 		return id;

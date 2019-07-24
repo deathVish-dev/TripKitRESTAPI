@@ -1,4 +1,4 @@
-package com.app.pojos;
+package com.app.pojoss;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,64 +19,42 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-@Entity
-@Table(name = "ProductTable")
-public class Product {
+
+public class Products {
 	
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "product_id")
+   
     private Long id;
 
 
 
-    @Column(name = "name", nullable = false, unique = true)
-    @Length(min = 3)
+   
     private String name;
 
 
 
-    @Column(name = "description")
+   
     private String description;
 
 
-    @Column(name = "category")
+    
     private String category;
 
-    
-    @Column(name = "price", nullable = false)
-    @DecimalMin(value = "0.00")
+
     private Double price;
     
-    
-    @Column(name = "rent", nullable = false)
-    @DecimalMin(value = "0.00")
+
     private Double rent;
     
-    @Column(name = "image")
+    
     private String img;
     
-    
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonBackReference
-    private Set<Cart> carts;
-    
-    
-    @OneToMany(mappedBy = "prod",cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonBackReference
-    private Set<Order> orders;
-    
-    
-    @OneToMany(mappedBy = "prod",cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonBackReference
-    private Set<Inventory> invens;
+
+    private Set<Carts> carts;
 
 
-	public Product(Long id, String name, String description, String category, Double price, Double rent, String img) {
+	public Products(Long id, String name, String description, String category, Double price, Double rent, String img,
+			Set<Carts> carts) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -85,10 +63,12 @@ public class Product {
 		this.price = price;
 		this.rent = rent;
 		this.img = img;
+		this.carts = carts;
 	}
 
 
-	public Product(String name, String description, String category, Double price, Double rent, String img) {
+	public Products(String name, String description, String category, Double price, Double rent, String img,
+			Set<Carts> carts) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -96,10 +76,11 @@ public class Product {
 		this.price = price;
 		this.rent = rent;
 		this.img = img;
+		this.carts = carts;
 	}
 
 
-	public Product() {
+	public Products() {
 		super();
 	}
 
@@ -174,12 +155,12 @@ public class Product {
 	}
 
 
-	public Set<Cart> getCarts() {
+	public Set<Carts> getCarts() {
 		return carts;
 	}
 
 
-	public void setCarts(Set<Cart> carts) {
+	public void setCarts(Set<Carts> carts) {
 		this.carts = carts;
 	}
 

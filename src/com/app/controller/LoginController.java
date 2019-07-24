@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,6 +42,14 @@ public class LoginController {
 		System.out.println(login);
 		return login;
 		}
+	
+	@PostMapping("/updatedtls")
+	public String updateLogin(@RequestBody Login l) {
+		System.out.println("In Login Update");
+		System.out.println(l.toString());
+		return "Update";
+		}
+	
 	@GetMapping("/custdtls/{uname}/{pass}")
 	public Customer custDetails(@PathVariable String uname,@PathVariable String pass) {
 		Customer c=custdao.getCustomerAcc(uname, pass);

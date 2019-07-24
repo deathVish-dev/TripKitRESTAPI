@@ -22,29 +22,25 @@ public class CartDao implements ICartDao {
 
 	@Override
 	public Cart saveInCart(Cart c) {
-		Cart cart=null;
-		String jpql="select i from Cart i where product_id:=pid and customer_id=:uid";
-		System.out.println("in get cart items");
-		try{
-			cart=sf.getCurrentSession().createQuery(jpql,Cart.class)
-			.setParameter("pid", c.getProduct().getId()).setParameter("uid", c.getCustomer().getId()).getSingleResult();
-		}catch (Exception e) {
-			// TODO: handle exception
-		}
-		if(cart==null)
-		{
-		System.out.println("Cart details********************************************");
-		//System.out.println(c.toString());
-			sf.getCurrentSession().save(c);
-		}
-		else
-		{
-			System.out.println("Else Cart details********************************************");
-			//System.out.println(cart.toString());
-			cart.setQuantity(cart.getQuantity()+c.getQuantity());
-			sf.getCurrentSession().saveOrUpdate(cart);
-		}
-		return c;
+		
+		 sf.getCurrentSession().saveOrUpdate(c);
+		 return c;
+		/*
+		 * Cart cart=null; String
+		 * jpql="select i from Cart i where product_id=:pid and customer_id=:uid";
+		 * System.out.println("in get cart items"); try{
+		 * cart=sf.getCurrentSession().createQuery(jpql,Cart.class) .setParameter("pid",
+		 * c.getProduct().getId()).setParameter("uid",
+		 * c.getCustomer().getId()).getSingleResult(); }catch (Exception e) { // TODO:
+		 * handle exception } if(cart==null) {
+		 * System.out.println("Cart details********************************************"
+		 * ); //System.out.println(c.toString()); sf.getCurrentSession().save(c); } else
+		 * { System.out.
+		 * println("Else Cart details********************************************");
+		 * //System.out.println(cart.toString());
+		 * //cart.setQuantity(cart.getQuantity()+c.getQuantity());
+		 * sf.getCurrentSession().saveOrUpdate(c); } return c;
+		 */
 	}
 
 

@@ -1,5 +1,7 @@
 package com.app.dao;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,6 +36,12 @@ public class CustomerDao implements ICustomerDao {
 	public Customer updateCustomer(Customer c) {
 		sf.getCurrentSession().update(c);
 		return c;
+	}
+
+	@Override
+	public List<String> getMails() {
+		String jpql="select c.mail from Customer c";
+		return sf.getCurrentSession().createQuery(jpql,String.class).getResultList();
 	}
 	
 

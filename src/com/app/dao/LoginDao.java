@@ -33,9 +33,9 @@ public class LoginDao implements ILoginDao {
 	}
 
 	@Override
-	public String reg(Login l) {
-		
-		return null;
+	public Login reg(Login l) {
+		sf.getCurrentSession().save(l);
+		return l;
 	}
 
 }

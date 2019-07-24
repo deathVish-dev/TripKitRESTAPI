@@ -28,7 +28,7 @@ public class ProductDao implements IProductDao {
 
 	@Override
 	public Product updateProduct(Product p) {
-		sf.getCurrentSession().update(p);
+		sf.getCurrentSession().saveOrUpdate(p);
 		return p;
 	}
 
