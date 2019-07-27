@@ -2,32 +2,29 @@ package com.app.pojoss;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import com.app.pojos.Address;
+import com.app.pojos.Cart;
+import com.app.pojos.Order;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 public class Customers{
 
 	
     private Long id;
-
-  
     private String name;
-    
-  
     private String mail;
-    
-   
     private String addr;
-    
- 
     private Long phone;
-    
-   
     private String pass;
-    
-    
-  
     private Set<Orders> orders;
-    
-   
     private Set<Carts> carts;
+    private Set<Address> addrs;
 
 	public Long getId() {
 		return id;

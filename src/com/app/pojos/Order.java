@@ -23,8 +23,8 @@ public class Order implements Serializable{
 
 	@ManyToOne
 	@JsonManagedReference
-    @JoinColumn(name = "product_id")
-    private Product prod ;
+    @JoinColumn(name = "inven_id")
+    private Inventory inven ;
 
     
     @Column(name = "rent", nullable = false)
@@ -53,6 +53,10 @@ public class Order implements Serializable{
     @OneToOne
     @JoinColumn(name = "addr_id")
     private Address addr;
+    
+    @OneToOne
+    @JoinColumn(name = "card_id")
+    private CardDetails card;
 
 	public Long getId() {
 		return id;
@@ -62,12 +66,30 @@ public class Order implements Serializable{
 		this.id = id;
 	}
 
-	public Product getProd() {
-		return prod;
+
+
+	public Inventory getInven() {
+		return inven;
 	}
 
-	public void setProd(Product prod) {
-		this.prod = prod;
+	public void setInven(Inventory inven) {
+		this.inven = inven;
+	}
+
+	public Address getAddr() {
+		return addr;
+	}
+
+	public void setAddr(Address addr) {
+		this.addr = addr;
+	}
+
+	public CardDetails getCard() {
+		return card;
+	}
+
+	public void setCard(CardDetails card) {
+		this.card = card;
 	}
 
 	public Double getRent() {
@@ -110,25 +132,31 @@ public class Order implements Serializable{
 		this.cust = cust;
 	}
 
-	public Order(Long id, Product prod, Double rent, int quantity, Date bdate, Date rdate, Customer cust) {
+	public Order(Long id, Inventory inven, Double rent, int quantity, Date bdate, Date rdate, Customer cust,
+			Address addr, CardDetails card) {
 		super();
 		this.id = id;
-		this.prod = prod;
+		this.inven = inven;
 		this.rent = rent;
 		this.quantity = quantity;
 		this.bdate = bdate;
 		this.rdate = rdate;
 		this.cust = cust;
+		this.addr = addr;
+		this.card = card;
 	}
 
-	public Order(Product prod, Double rent, int quantity, Date bdate, Date rdate, Customer cust) {
+	public Order(Inventory inven, Double rent, int quantity, Date bdate, Date rdate, Customer cust, Address addr,
+			CardDetails card) {
 		super();
-		this.prod = prod;
+		this.inven = inven;
 		this.rent = rent;
 		this.quantity = quantity;
 		this.bdate = bdate;
 		this.rdate = rdate;
 		this.cust = cust;
+		this.addr = addr;
+		this.card = card;
 	}
 
 	public Order() {
@@ -137,9 +165,11 @@ public class Order implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", prod=" + prod + ", rent=" + rent + ", quantity=" + quantity + ", bdate=" + bdate
-				+ ", rdate=" + rdate + ", cust=" + cust + "]";
+		return "Order [id=" + id + ", inven=" + inven + ", rent=" + rent + ", quantity=" + quantity + ", bdate=" + bdate
+				+ ", rdate=" + rdate + ", cust=" + cust + ", addr=" + addr + ", card=" + card + "]";
 	}
+
+
     
     
     

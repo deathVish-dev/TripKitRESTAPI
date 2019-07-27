@@ -53,7 +53,7 @@ public class Customer{
     private Set<Order> orders;
     
     
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer")
     @JsonBackReference
     @LazyCollection(LazyCollectionOption.FALSE)
     private Set<Cart> carts;

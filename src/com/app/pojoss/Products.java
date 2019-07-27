@@ -18,6 +18,8 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Length;
 
+import com.app.pojos.Inventory;
+import com.app.pojos.Order;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 public class Products {
@@ -25,35 +27,17 @@ public class Products {
 
    
     private Long id;
-
-
-
-   
-    private String name;
-
-
-
-   
+    private String name;  
     private String description;
-
-
-    
     private String category;
-
-
     private Double price;
-    
-
     private Double rent;
-    
-    
     private String img;
+    private Set<Order> orders;
+    private Set<Inventory> invens;
+
     
-
-    private Set<Carts> carts;
-
-
-	public Products(Long id, String name, String description, String category, Double price, Double rent, String img,
+    public Products(Long id, String name, String description, String category, Double price, Double rent, String img,
 			Set<Carts> carts) {
 		super();
 		this.id = id;
@@ -63,7 +47,6 @@ public class Products {
 		this.price = price;
 		this.rent = rent;
 		this.img = img;
-		this.carts = carts;
 	}
 
 
@@ -76,7 +59,6 @@ public class Products {
 		this.price = price;
 		this.rent = rent;
 		this.img = img;
-		this.carts = carts;
 	}
 
 
@@ -154,21 +136,10 @@ public class Products {
 		this.img = img;
 	}
 
-
-	public Set<Carts> getCarts() {
-		return carts;
-	}
-
-
-	public void setCarts(Set<Carts> carts) {
-		this.carts = carts;
-	}
-
-
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", description=" + description + ", category=" + category
-				+ ", price=" + price + ", rent=" + rent + ", img=" + img + ", carts=" + carts + "]";
+				+ ", price=" + price + ", rent=" + rent + ", img=" + img + "]";
 	}
     
     

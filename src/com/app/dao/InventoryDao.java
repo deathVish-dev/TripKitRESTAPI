@@ -64,4 +64,11 @@ public class InventoryDao implements IInvenDao {
 		return "Successful";
 	}
 
+	@Override
+	public List<Inventory> getAllInventory() {
+		System.out.println("in get inventory list");
+		String jpql="select i from Inventory i";
+		return sf.getCurrentSession().createQuery(jpql,Inventory.class).getResultList();
+	}
+
 }

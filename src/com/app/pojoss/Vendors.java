@@ -8,29 +8,15 @@ import com.app.pojos.Inventory;
 public class Vendors {
 	
 	    private Long id;
-
-
-	    private String name;
-	    
-	  
-	    private String mail;
-	    
-	   
-	    private String addr;
-	    
-	   private Long phone;
-	    
+	    private String name;	  
+	    private String mail;	   
+	    private String addr; 
+	    private Long phone;    
 	    private String shopid;
-	    
 	    private String shopaddr;
-	    
-	    
 	    private String permission;
-	    
 	    private String pass;
-
-
-	   Set<Inventorys> products;
+        private Set<Inventorys> products;
 	    
 	    
 	    public Vendors(Long id, String name, String mail, String addr, Long phone, String shopid, String shopaddr,

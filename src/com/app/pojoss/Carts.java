@@ -4,82 +4,55 @@ package com.app.pojoss;
 public class Carts{
 
 	private long id;
-
-	private Products product;
-
 	private int quantity;
+	private Inventorys inven;
+	private Customers cust;
 	
-	private Customers customer;
-
-
-	public Carts(long id, Products product, int quantity, Customers customer) {
+	
+	public Carts(long id, int quantity, Inventorys inven, Customers cust) {
 		super();
 		this.id = id;
-		this.product = product;
 		this.quantity = quantity;
-		this.customer = customer;
+		this.inven = inven;
+		this.cust = cust;
 	}
-
-
-	public Carts(Products product, int quantity, Customers customer) {
+	public Carts(int quantity, Inventorys inven, Customers cust) {
 		super();
-		this.product = product;
 		this.quantity = quantity;
-		this.customer = customer;
+		this.inven = inven;
+		this.cust = cust;
 	}
-
-
 	public Carts() {
 		super();
 	}
-
-
 	public long getId() {
 		return id;
 	}
-
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
-
-	public Products getProduct() {
-		return product;
-	}
-
-
-	public void setProduct(Products product) {
-		this.product = product;
-	}
-
-
 	public int getQuantity() {
 		return quantity;
 	}
-
-
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
-
-	public Customers getCustomer() {
-		return customer;
+	public Inventorys getInven() {
+		return inven;
 	}
-
-
-	public void setCustomer(Customers customer) {
-		this.customer = customer;
+	public void setInven(Inventorys inven) {
+		this.inven = inven;
 	}
-
-
+	public Customers getCust() {
+		return cust;
+	}
+	public void setCust(Customers cust) {
+		this.cust = cust;
+	}
 	@Override
 	public String toString() {
-		return "Cart [id=" + id + ", product=" + product + ", quantity=" + quantity + ", customer=" + customer + "]";
+		return "Carts [id=" + id + ", quantity=" + quantity + ", inven=" + inven + ", cust=" + cust + "]";
 	}
-
 	
 	
-
 	}

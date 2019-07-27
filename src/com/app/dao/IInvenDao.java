@@ -7,6 +7,7 @@ import com.app.pojos.Inventory;
 
 public interface IInvenDao {
 
+	public List<Inventory> getAllInventory();
 	public List<Inventory> getVendorInventory(long id);
 	public Inventory addInventory(Inventory inven);
 	public Inventory updateInventory(Inventory inven);

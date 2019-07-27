@@ -10,6 +10,8 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "VendorTable")
 public class Vendor implements Serializable {
@@ -54,6 +56,7 @@ public class Vendor implements Serializable {
 
 	    @OneToMany(mappedBy = "ven",cascade = CascadeType.ALL)
 	    @LazyCollection(LazyCollectionOption.FALSE)
+	    @JsonBackReference
 	    List<Inventory> products=new ArrayList<Inventory>();
 	    
 	    

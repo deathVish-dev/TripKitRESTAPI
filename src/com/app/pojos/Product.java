@@ -58,18 +58,6 @@ public class Product {
     private String img;
     
     
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonBackReference
-    private Set<Cart> carts;
-    
-    
-    @OneToMany(mappedBy = "prod",cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonBackReference
-    private Set<Order> orders;
-    
-    
     @OneToMany(mappedBy = "prod",cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonBackReference
@@ -174,20 +162,10 @@ public class Product {
 	}
 
 
-	public Set<Cart> getCarts() {
-		return carts;
-	}
-
-
-	public void setCarts(Set<Cart> carts) {
-		this.carts = carts;
-	}
-
-
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", description=" + description + ", category=" + category
-				+ ", price=" + price + ", rent=" + rent + ", img=" + img + ", carts=" + carts + "]";
+				+ ", price=" + price + ", rent=" + rent + ", img=" + img + "]";
 	}
     
     

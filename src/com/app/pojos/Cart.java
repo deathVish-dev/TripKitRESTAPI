@@ -25,8 +25,8 @@ public class Cart{
 	
 	@ManyToOne
 	@JsonManagedReference
-	@JoinColumn(name="product_id")
-	private Product product;
+	@JoinColumn(name="inven_id")
+	private Inventory inven;
 	
 	
 	@Column(name = "quantity")
@@ -39,28 +39,6 @@ public class Cart{
 	private Customer customer;
 
 
-	public Cart(long id, Product product, int quantity, Customer customer) {
-		super();
-		this.id = id;
-		this.product = product;
-		this.quantity = quantity;
-		this.customer = customer;
-	}
-
-
-	public Cart(Product product, int quantity, Customer customer) {
-		super();
-		this.product = product;
-		this.quantity = quantity;
-		this.customer = customer;
-	}
-
-
-	public Cart() {
-		super();
-	}
-
-
 	public long getId() {
 		return id;
 	}
@@ -71,13 +49,13 @@ public class Cart{
 	}
 
 
-	public Product getProduct() {
-		return product;
+	public Inventory getInven() {
+		return inven;
 	}
 
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setInven(Inventory inven) {
+		this.inven = inven;
 	}
 
 
@@ -101,11 +79,33 @@ public class Cart{
 	}
 
 
-	@Override
-	public String toString() {
-		return "Cart [id=" + id + ", product=" + product + ", quantity=" + quantity + ", customer=" + customer + "]";
+	public Cart(long id, Inventory inven, int quantity, Customer customer) {
+		super();
+		this.id = id;
+		this.inven = inven;
+		this.quantity = quantity;
+		this.customer = customer;
 	}
 
+
+	public Cart(Inventory inven, int quantity, Customer customer) {
+		super();
+		this.inven = inven;
+		this.quantity = quantity;
+		this.customer = customer;
+	}
+
+
+	public Cart() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	@Override
+	public String toString() {
+		return "Cart [id=" + id + ", inven=" + inven + ", quantity=" + quantity + ", customer=" + customer + "]";
+	}
+	
 	
 	
 

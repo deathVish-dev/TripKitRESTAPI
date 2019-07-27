@@ -25,22 +25,6 @@ public class CartDao implements ICartDao {
 		
 		 sf.getCurrentSession().saveOrUpdate(c);
 		 return c;
-		/*
-		 * Cart cart=null; String
-		 * jpql="select i from Cart i where product_id=:pid and customer_id=:uid";
-		 * System.out.println("in get cart items"); try{
-		 * cart=sf.getCurrentSession().createQuery(jpql,Cart.class) .setParameter("pid",
-		 * c.getProduct().getId()).setParameter("uid",
-		 * c.getCustomer().getId()).getSingleResult(); }catch (Exception e) { // TODO:
-		 * handle exception } if(cart==null) {
-		 * System.out.println("Cart details********************************************"
-		 * ); //System.out.println(c.toString()); sf.getCurrentSession().save(c); } else
-		 * { System.out.
-		 * println("Else Cart details********************************************");
-		 * //System.out.println(cart.toString());
-		 * //cart.setQuantity(cart.getQuantity()+c.getQuantity());
-		 * sf.getCurrentSession().saveOrUpdate(c); } return c;
-		 */
 	}
 
 
@@ -64,7 +48,7 @@ public class CartDao implements ICartDao {
 	@Override
 	public Cart prodCart(long uid, long pid) {
 		Cart cart=null;
-		String jpql="select i from Cart i where product_id=:pid and customer_id=:uid";
+		String jpql="select i from Cart i where inven_id=:pid and customer_id=:uid";
 		System.out.println("in get cart items");
 		try{
 			cart=sf.getCurrentSession().createQuery(jpql,Cart.class)
@@ -74,6 +58,14 @@ public class CartDao implements ICartDao {
 			cart=null;
 		}
 		return cart;
+	}
+
+
+
+	@Override
+	public String removeCart(long cid) {
+		sf.getCurrentSession().remove(sf.getCurrentSession().get(Cart.class, cid));
+		return "Removed";
 	}
 
 }

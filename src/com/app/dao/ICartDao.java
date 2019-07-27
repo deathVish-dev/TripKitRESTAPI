@@ -9,5 +9,6 @@ public interface ICartDao {
 	public List<Cart> getUserCart(long uid);
 	public Cart saveInCart(Cart c);
 	public Cart prodCart(long uid,long pid);
+	public String removeCart(long cid);
 
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.pojos.Inventory;
 import com.app.pojos.Login;
 import com.app.pojos.Product;
 import com.mysql.jdbc.PreparedStatement;
@@ -50,6 +51,29 @@ public class ProductDao implements IProductDao {
 		List<Product> l=null;
 		try{
 			l=sf.getCurrentSession().createQuery(jpql,Product.class).getResultList();
+		}catch (Exception e) {
+			// TODO: handle exception
+			l=null;
+		}
+			return l;
+	}
+	
+	@Override
+	public List<Product> getAllProductWhichAreNotInInventory(long id) {
+		String inven="select prod from Inventory i where ven_id=:vid";
+		List<Product> pids=null;
+		try{
+			pids=sf.getCurrentSession().createQuery(inven,Product.class).setParameter("vid", id).getResultList();
+		}catch (Exception e) {
+			// TODO: handle exception
+			pids=null;
+		}
+		//System.out.println(pids.get(0).getName());
+		String jpql="select c from Product c where product_id not in (:pids)";
+		System.out.println("in validate dao");
+		List<Product> l=null;
+		try{
+			l=sf.getCurrentSession().createQuery(jpql,Product.class).setParameter("pids", pids).getResultList();
 		}catch (Exception e) {
 			// TODO: handle exception
 			l=null;

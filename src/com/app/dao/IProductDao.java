@@ -12,5 +12,6 @@ public interface IProductDao {
 	public Product getProduct(long id);
 	public String removeProduct(Product p);
 	public List<Product> getAllProduct();
+	public List<Product> getAllProductWhichAreNotInInventory(long id);
 
 }
